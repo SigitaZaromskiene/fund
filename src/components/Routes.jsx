@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { Global } from "./Global";
-// import LoggedInBills from "./LoggedInBills";
-// import Login from "./Login";
-// import Auth from "./Auth";
+import Story from "./Story";
+import Login from "./Login";
+import Auth from "./Auth";
 import Home from "./Home";
 import Nav from "./Nav";
 import axios from "axios";
@@ -42,26 +42,22 @@ function Routes(props) {
           <Home />
         </>
       );
+
+    case "stories":
+      return (
+        <Auth>
+          <Nav></Nav>
+          <Story></Story>
+        </Auth>
+      );
+
+    case "login":
+      return <Login></Login>;
+    // case "register":
+    //   return <Register btn={props.className}></Register>;
     default:
       return null;
   }
-
-  //     case "bills":
-  //       return (
-  //         <Auth>
-  //           <Nav class="nav" btn="hover"></Nav>
-  //           <LoggedInBills></LoggedInBills>
-  //         </Auth>
-  //       );
-
-  //     case "login":
-  //       return <Login btn={props.className}></Login>;
-  //     // case "register":
-  //     //   return <Register btn={props.className}></Register>;
-  //     default:
-  //       return null;
-  //   }
-  // }
 }
 
 export default Routes;

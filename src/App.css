@@ -2,7 +2,6 @@
 #F36B32 */
 
 .navigation {
-  background-color: aquamarine;
   display: flex;
   box-sizing: border-box;
   align-items: center;
@@ -18,4 +17,38 @@
 .nav-a:hover {
   color: #297fba;
   cursor: pointer;
+}
+
+.button-or {
+  padding: 10px 20px;
+  width: 120px;
+  box-shadow: 0 0.5rem 1rem rgb(243 107 50 / 45%) !important;
+  color: white;
+  margin: 0px;
+  border-radius: 5px;
+  border: none;
+  background-color: #f36b32;
+  text-align: center;
+}
+
+.button-blue {
+  padding: 10px 20px;
+  box-shadow: 0 0.5rem 1rem rgb(41 127 186 / 42%) !important;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  margin: 0px;
+  width: 120px;
+  background-color: #297fba;
+  text-align: center;
+}
+
+.button-or:hover {
+  background-color: white;
+  color: #f36b32;
+}
+
+.button-blue:hover {
+  background-color: white;
+  color: #297fba;
 }

@@ -59,10 +59,10 @@ function Nav(props) {
           </>
         ) : (
           <>
-            <p className="nav-a" onClick={() => setRoute("login")}>
+            <p className="button-blue" onClick={() => setRoute("login")}>
               Login
             </p>
-            <p className="nav-a" onClick={() => setRoute("register")}>
+            <p className="button-or" onClick={() => setRoute("register")}>
               Register
             </p>
           </>

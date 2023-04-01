@@ -4,6 +4,8 @@
 // import axios from "axios";
 // import { useState, useEffect } from "react";
 // import AvargeBalance from "./AvarageBalance";
+import React from "react";
+import main from "./img/main.jpg";
 
 const URL = "http://localhost:3003/home";
 
@@ -17,35 +19,93 @@ function Home(props) {
   //     });
   //   }, [props.lastStateUpdate]);
   return (
-    <div style={{ display: "flex" }}>
-      Labassssssssss
-      {/* <img
-        src={bank}
-        alt="bank app home page img"
-        style={{ height: "830px", width: "80%" }}
-      />
+    <div
+      style={{
+        height: "850px",
+        backgroundImage:
+          "linear-gradient(rgb(41 127 186 / 70%), rgb(0 0 0 / 52%)), url(https://crowdfunding-production.ewr1.vultrobjects.com/1/root/invest-my-idea-main-page-image-min-1.jpg)",
+        backgroundSize: "cover",
+      }}
+    >
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          height: "100%",
+          justifyContent: "center",
+          alignContent: "center",
         }}
       >
-        <div className={props.headerBank}>A bank you can count on.</div>
+        <div
+          style={{
+            padding: "50px 50px",
 
-        <ClientsNumber
-          className="header-home"
-          clientList={props.clientList}
-        ></ClientsNumber>
-        <CurrentBalance
-          className="header-home"
-          clientList={props.clientList}
-        ></CurrentBalance>
-        <AvargeBalance
-          className="header-home"
-          clientList={props.clientList}
-        ></AvargeBalance>
-      </div> */}
+            display: "flex",
+            justifyContent: "flex-start",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h1
+            style={{
+              width: "400px",
+              fontSize: "80px",
+              fontWeight: "600",
+              color: "white",
+            }}
+          >
+            Start building a bright{" "}
+            <span style={{ color: "#F36B32 " }}>FUTURE!</span>
+          </h1>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.5)",
+              padding: "30px 40px",
+              marginRight: "100px",
+            }}
+          >
+            <h2
+              style={{
+                paddingTop: " 10px",
+                fontWeight: "600",
+                fontSize: "54px",
+                display: "flex",
+                justifyContent: "flex-start",
+                flexDirection: "column",
+                alignItems: "center",
+                color: "black",
+              }}
+            >
+              I am looking to
+            </h2>
+            <p
+              style={{
+                color: "#404040",
+
+                marginTop: "20px",
+                padding: "10px",
+              }}
+            >
+              Raise funds for my innovative idea, business project, or startup{" "}
+            </p>
+            <div
+              style={{ display: "flex", gap: "20px", justifyContent: "center" }}
+            >
+              <button className="button-or">Apply now</button>
+              <button className="button-blue">Stories</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
