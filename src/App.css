@@ -21,7 +21,7 @@
 
 .button-or {
   padding: 10px 20px;
-  width: 120px;
+  width: 140px;
   box-shadow: 0 0.5rem 1rem rgb(243 107 50 / 45%) !important;
   color: white;
   margin: 0px;
@@ -38,7 +38,7 @@
   border-radius: 5px;
   border: none;
   margin: 0px;
-  width: 120px;
+  width: 140px;
   background-color: #297fba;
   text-align: center;
 }
@@ -46,9 +46,33 @@
 .button-or:hover {
   background-color: white;
   color: #f36b32;
+  cursor: pointer;
+  text-align: center;
 }
 
 .button-blue:hover {
   background-color: white;
   color: #297fba;
+  cursor: pointer;
+  text-align: center;
+}
+
+.form-login {
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  width: 600px;
+  padding: 20px 30px;
+}
+
+h3 {
+  clear: both;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+
+.border {
+  border-bottom: 0.1px solid black;
+  margin-bottom: 40px;
 }

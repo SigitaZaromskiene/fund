@@ -12,19 +12,6 @@ function Login(props) {
 
   const [modal, setModal] = useState({ class: "hidden", msg: "", color: "" });
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3003/login", { withCredentials: true })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       // if (res.data.status === "ok") {
-  //       //   setUserName(res.data.name);
-  //       // }
-  //     });
-  // }, []);
-
-  // const { setLogged, setAuthName } = useContext(Global);
-
   const login = (_) => {
     axios
       .post(
@@ -59,140 +46,132 @@ function Login(props) {
   };
 
   return (
-    <>
-      <button
-        style={{
-          textAlign: "center",
-          width: "150px",
-          padding: "10px",
-          background: "none",
-          borderRadius: "15px",
-          cursor: "pointer",
-          color: "#653c28",
-          fontWeight: "600",
-          border: "1px solid #653c28",
-        }}
-        onClick={() => setRoute("home")}
-      >
-        {" "}
-        &larr; &nbsp; Home page
-      </button>
-      <div
-        style={{
-          display: "flex",
-          height: "70vh",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "845px",
+        backgroundImage:
+          "linear-gradient(rgba(41, 127, 186, 0.7), rgba(0, 0, 0, 0.52))",
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="form-login">
         <div
           style={{
-            backgroundColor: "#f4f6f9",
-
-            padding: "20px 40px",
-            border: "1px solid black",
-            borderRadius: "15px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
+            textAlign: "center",
+            fontSize: "24px",
           }}
         >
-          <div style={{ textAlign: "center", fontSize: "24px" }}>
-            {error ? (
-              <span style={{ color: "red" }}>Login Error</span>
-            ) : (
-              <span style={{ color: "#653c28", fontWeight: "500" }}>Login</span>
-            )}
-          </div>
+          {error ? (
+            <span style={{ color: "red" }}>Login Error</span>
+          ) : (
+            <>
+              <h3>Login</h3>
+              <div className="border"></div>
+            </>
+          )}
+        </div>
 
-          <h5 style={{ textAlign: "center", fontSize: "20px" }}>
-            <span>Hello, guest</span>
-          </h5>
+        <h5
+          style={{
+            textAlign: "center",
+            fontSize: "20px",
+            color: "#f36b32",
+            marginBottom: "30px",
+          }}
+        >
+          <span>Hello, guest</span>
+        </h5>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+
+            gap: "20px",
+          }}
+        >
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-
-              gap: "20px",
+              gap: "15px",
             }}
           >
-            <div
+            <label
               style={{
-                display: "flex",
-                gap: "15px",
+                fontSize: "16px",
+                color: "#black",
+                fontWeight: "500",
+                width: "30%",
+                marginTop: "7px",
               }}
             >
-              <label
-                style={{
-                  fontSize: "20px",
-                  color: "#653c28",
-                  fontWeight: "500",
-                  width: "30%",
-                }}
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                style={{ padding: "5px 10px", fontSize: "20px", width: "80%" }}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: "15px",
-              }}
-            >
-              <label
-                style={{
-                  fontSize: "20px",
-                  color: "#653c28",
-                  fontWeight: "500",
-                  width: "30%",
-                }}
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                style={{
-                  padding: "5px 10px",
-                  fontSize: "20px",
-                  marginBottom: "50px",
-                  width: "80%",
-                }}
-                value={psw}
-                onChange={(e) => setPsw(e.target.value)}
-              />
-            </div>
+              Name
+            </label>
+            <input
+              type="text"
+              style={{ padding: "5px 10px", fontSize: "20px", width: "80%" }}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-
-          <button
+          <div
             style={{
-              textAlign: "center",
-              width: "150px",
-              padding: "10px",
-              background: "none",
-              borderRadius: "15px",
-              cursor: "pointer",
-              color: "#653c28",
-              fontWeight: "600",
-              border: "1px solid #653c28",
+              display: "flex",
+              gap: "15px",
             }}
-            onClick={login}
           >
+            <label
+              style={{
+                fontSize: "16px",
+                color: "#black",
+                fontWeight: "500",
+                width: "30%",
+                marginTop: "7px",
+              }}
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              style={{
+                padding: "5px 10px",
+                fontSize: "20px",
+                marginBottom: "30px",
+                width: "80%",
+              }}
+              value={psw}
+              onChange={(e) => setPsw(e.target.value)}
+            />
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+          <button  style={{marginBottom:'20px'}}className="button-blue" onClick={login}>
             Login
           </button>
-        </div>
-
-        <div className={`${modal.class} modal`}>
-          <p style={{ backgroundColor: modal.color }}>{modal.msg} </p>
+          <div style={{ display: "flex", gap: "5px" }}>
+            <p style={{ fontSize: "16px" }}>
+              Not a member yet?</p>
+              <p
+                style={{ color: "black", cursor:'pointer', borderBottom:'1px solid black' }}
+                onClick={() => setRoute("register")}
+              >
+                Register Now
+              </p>
+            
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -5,11 +5,13 @@
 // import { useState, useEffect } from "react";
 // import AvargeBalance from "./AvarageBalance";
 import React from "react";
-import main from "./img/main.jpg";
+import { useContext } from "react";
+import { Global } from "./Global";
 
 const URL = "http://localhost:3003/home";
 
 function Home(props) {
+  const { route, setRoute } = useContext(Global);
   //   useEffect(() => {
   //     if (props.lastStateUpdate === null) {
   //       return;
@@ -21,7 +23,7 @@ function Home(props) {
   return (
     <div
       style={{
-        height: "850px",
+        height: "845px",
         backgroundImage:
           "linear-gradient(rgb(41 127 186 / 70%), rgb(0 0 0 / 52%)), url(https://crowdfunding-production.ewr1.vultrobjects.com/1/root/invest-my-idea-main-page-image-min-1.jpg)",
         backgroundSize: "cover",
@@ -100,8 +102,18 @@ function Home(props) {
             <div
               style={{ display: "flex", gap: "20px", justifyContent: "center" }}
             >
-              <button className="button-or">Apply now</button>
-              <button className="button-blue">Stories</button>
+              <button
+                className="button-or"
+                onClick={() => setRoute("register")}
+              >
+                Apply now
+              </button>
+              <button
+                className="button-blue"
+                onClick={() => setRoute("fundraisers")}
+              >
+                Fundraisers
+              </button>
             </div>
           </div>
         </div>

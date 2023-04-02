@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Global } from "./Global";
 import axios from "axios";
 
-function Nav(props) {
+function NavNoLogin(props) {
   const { route, setRoute, authName, setAuthName, setLogged, logged } =
     useContext(Global);
 
@@ -59,9 +59,6 @@ function Nav(props) {
           </>
         ) : (
           <>
-            <p className="button-blue" onClick={() => setRoute("login")}>
-              Login
-            </p>
             <p className="button-or" onClick={() => setRoute("register")}>
               Register
             </p>
@@ -72,4 +69,4 @@ function Nav(props) {
   );
 }
 
-export default Nav;
+export default NavNoLogin;
