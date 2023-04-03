@@ -1,9 +1,4 @@
-// import bank from "./img/bank.jpg";
-// import ClientsNumber from "./ClientsNumber";
-// import CurrentBalance from "./CurrentBalance";
-// import axios from "axios";
-// import { useState, useEffect } from "react";
-// import AvargeBalance from "./AvarageBalance";
+
 import React from "react";
 import { useContext } from "react";
 import { Global } from "./Global";
