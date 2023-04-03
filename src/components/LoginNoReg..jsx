@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Global } from "./Global";
 
-function Login(props) {
+function LoginNoReg(props) {
   const [userName, setUserName] = useState(null);
   const [error, setError] = useState(null);
   const [name, setName] = useState("");
@@ -163,23 +163,10 @@ function Login(props) {
           >
             Login
           </button>
-          <div style={{ display: "flex", gap: "5px" }}>
-            <p style={{ fontSize: "16px" }}>Not a member yet?</p>
-            <p
-              style={{
-                color: "black",
-                cursor: "pointer",
-                borderBottom: "1px solid black",
-              }}
-              onClick={() => setRoute("register")}
-            >
-              Register Now
-            </p>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default LoginNoReg;

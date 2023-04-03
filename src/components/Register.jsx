@@ -11,63 +11,33 @@ function Register(props) {
 
   const { setRoute, setLogged, setAuthName } = useContext(Global);
 
-  const [modal, setModal] = useState({ class: "hidden", msg: "", color: "" });
+  console.log(error);
 
   const register = (_) => {
     if (psw !== psw2) {
-      setModal({
-        class: "visible",
-        msg: "Password mismatch",
-        color: "red",
-      });
-      setTimeout(() => {
-        setModal({ class: "hidden", msg: "", color: "" });
-      }, 2000);
+      setError("Passwords missmatch");
       return;
     }
-
-    //   axios
-    //     .post(
-    //       "http://localhost:3003/register",
-    //       { name, psw },
-    //       { withCredentials: true }
-    //     )
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       if (res.data.status === "ok") {
-    //         setName("");
-    //         setPsw("");
-    //         setPsw2("");
-    //         setError(null);
-
-    //         //   setModal({
-    //         //     class: "visible",
-    //         //     msg: "Please enter correct details",
-    //         //     color: "red",
-    //         //   });
-    //         //   setTimeout(() => {
-    //         //     setModal({ class: "hidden", msg: "", color: "" });
-    //         //   }, 2000);
-    //         //   return;
-    //         // }
-
-    //         // setRoute("home");
-    //       } else {
-    //         setError(true);
-
-    //         //   setModal({
-    //         //     class: "visible",
-    //         //     msg: "Please enter correct details",
-    //         //     color: "red",
-    //         //   });
-    //         //   setTimeout(() => {
-    //         //     setModal({ class: "hidden", msg: "", color: "" });
-    //         //   }, 2000);
-    //         //   return;
-    //         // }
-    //       }
-    //     });
+    axios
+      .post(
+        "http://localhost:3003/register",
+        { name, psw },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.status === "ok") {
+          setName("");
+          setPsw("");
+          setPsw2("");
+          setError(null);
+          setRoute("login");
+        } else {
+          setError("Server error");
+        }
+      });
   };
+
   return (
     <div
       style={{
@@ -85,10 +55,11 @@ function Register(props) {
           style={{
             textAlign: "center",
             fontSize: "24px",
+            marginBottom: "20px",
           }}
         >
           {error ? (
-            <span style={{ color: "red" }}>Password dismatch</span>
+            <span style={{ color: "red" }}>{error}</span>
           ) : (
             <>
               <h3>Register</h3>
@@ -176,7 +147,7 @@ function Register(props) {
               Repeat password
             </label>
             <input
-              type="text"
+              type="password"
               style={{
                 padding: "5px 10px",
                 fontSize: "16px",

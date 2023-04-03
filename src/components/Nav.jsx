@@ -51,12 +51,19 @@ function Nav(props) {
         }}
       >
         {authName ? (
-          <>
-            <h4>{authName}</h4>
-            <p className="nav-a" onClick={logOut}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "40px",
+            }}
+          >
+            <h4 style={{ color: "#297fba", margin: "0px" }}>{authName}</h4>
+            <p className="button-or" onClick={logOut}>
               Logout
             </p>
-          </>
+          </div>
         ) : (
           <>
             <p className="button-blue" onClick={() => setRoute("login")}>

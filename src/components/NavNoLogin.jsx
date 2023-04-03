@@ -53,7 +53,7 @@ function NavNoLogin(props) {
         {authName ? (
           <>
             <h4>{authName}</h4>
-            <p className="nav-a" onClick={logOut}>
+            <p className="button-or" onClick={logOut}>
               Logout
             </p>
           </>
