@@ -7,10 +7,29 @@ export const GlobalProvider = ({ children }) => {
   const [route, setRoute] = useState("home");
   const [logged, setLogged] = useState(null);
   const [authName, setAuthName] = useState(null);
+  const [goalAmount, setGoalAmount] = useState("");
+  const [createData, setCreateData] = useState(null);
+  const [lastStateUpdate, setLastStateUpdate] = useState(Date.now());
+  const [addStory, setAddStory] = useState("");
 
   return (
     <Global.Provider
-      value={{ route, setRoute, logged, setLogged, authName, setAuthName }}
+      value={{
+        route,
+        setRoute,
+        logged,
+        setLogged,
+        authName,
+        setAuthName,
+        goalAmount,
+        setGoalAmount,
+        createData,
+        setCreateData,
+        lastStateUpdate,
+        setLastStateUpdate,
+        addStory,
+        setAddStory,
+      }}
     >
       {children}
     </Global.Provider>

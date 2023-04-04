@@ -1,4 +1,68 @@
+import { useState, useContext, useEffect } from "react";
+import { Global } from "./Global";
+import { useFile } from "./useFile";
+import axios from "axios";
+
 function Start() {
+  const URL = "http://localhost:3003/story";
+
+  const [file, readFile, remImage] = useFile();
+
+  const [modal, setModal] = useState({ class: "hidden", msg: "", color: "" });
+
+  const {
+    goalAmount,
+    setGoalAmount,
+    createData,
+    setCreateData,
+    setLastStateUpdate,
+    addStory,
+    setAddStory,
+    setRoute,
+  } = useContext(Global);
+
+  useEffect(() => {
+    if (createData === null) {
+      return;
+    }
+    axios.post(URL, createData).then((res) => setLastStateUpdate(Date.now()));
+  }, [createData, setLastStateUpdate]);
+
+  const formHandler = () => {
+    if (!goalAmount || !addStory) {
+      setModal({
+        class: "visible",
+        msg: "Please fill all fields",
+        color: "red",
+      });
+      setTimeout(() => {
+        setModal({ class: "hidden", msg: "", color: "" });
+      }, 2000);
+      return;
+    }
+
+    setCreateData({
+      text: addStory,
+      file,
+      amount: goalAmount,
+    });
+
+    console.log(createData);
+
+    setModal({
+      class: "visible",
+      msg: "The fundraiser was sucessful created",
+      color: "white",
+    });
+    setTimeout(() => {
+      setModal({ class: "hidden", msg: "", color: "" });
+    }, 2000);
+
+    setAddStory("");
+    setGoalAmount("");
+    remImage();
+  };
+
   return (
     <div
       style={{
@@ -11,7 +75,7 @@ function Start() {
         style={{
           display: "flex",
           justifyContent: "center",
-          paddingTop: "70px",
+          paddingTop: "40px",
           color: "white",
           fontFamily: "Open Sans",
           fontSize: "32px",
@@ -41,28 +105,56 @@ function Start() {
           <h4
             style={{
               textAlign: "center",
-              padding: "15px",
             }}
           >
             Fundraiser details
           </h4>
-          <div>
-            <div className="details">
-              <label className="label">My story/idea</label>
-              <input type="text" style={{ paddingBottom: "150px" }}></input>
-            </div>
-            <div className="details">
-              <label className="label">Fundraiser photo</label>
 
-              <input
-                type="file"
-                style={{
-                  border: "1px solid black",
-                  backgroundColor: "white",
-                }}
-              ></input>
-
-              <div className="photo"></div>
+          <div className="details">
+            <label className="label">My story/idea</label>
+            <input
+              type="text"
+              value={addStory}
+              style={{ paddingBottom: "150px" }}
+              onChange={(e) => setAddStory(e.target.value)}
+            ></input>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div className="details">
+              <label
+                className="label"
+                htmlFor="formFile"
+                style={{ marginBottom: "0px" }}
+              >
+                Fundraiser photo
+              </label>
+              <div
+                style={{ display: "flex", gap: "70px", alignItems: "center" }}
+              >
+                <input
+                  type="file"
+                  style={{
+                    border: "1px solid black",
+                    backgroundColor: "white",
+                    id: "formFile",
+                    height: "45px",
+                    padding: "6px",
+                  }}
+                  onChange={readFile}
+                ></input>
+                {file ? (
+                  <img className="photo" src={file} alt="addphoto" />
+                ) : (
+                  <div className="photo"></div>
+                )}
+              </div>
             </div>
             <div className="details">
               <label className="label">Fundraising Goal</label>
@@ -71,13 +163,22 @@ function Start() {
                 placeholder="&euro;"
                 style={{
                   width: "150px",
-                  height: "50px",
+                  height: "45px",
                   fontSize: "28px",
+
+                  value: { goalAmount },
                 }}
+                onChange={(e) => setGoalAmount(e.target.value)}
               ></input>
             </div>
+            <button type="button" className="button-or" onClick={formHandler}>
+              Submit
+            </button>
           </div>
         </form>
+        <div className={`${modal.class} modal`}>
+          <p style={{ backgroundColor: modal.color }}>{modal.msg} </p>
+        </div>
       </div>
     </div>
   );
