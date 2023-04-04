@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { Global } from "./Global";
-import Story from "./Story";
+
 import Login from "./Login";
 import Auth from "./Auth";
 import Home from "./Home";
@@ -10,6 +10,7 @@ import NavNoLogin from "./NavNoLogin";
 import Register from "./Register";
 import NavNoReg from "./NavNoReg";
 import Fundraisers from "./Fundraisers";
+import Start from "./Start";
 
 function Routes(props) {
   const { route } = useContext(Global);
@@ -47,12 +48,12 @@ function Routes(props) {
         </>
       );
 
-    case "stories":
+    case "start":
       return (
-        <Auth>
+        <>
           <Nav></Nav>
-          <Story></Story>
-        </Auth>
+          <Start></Start>
+        </>
       );
 
     case "login":

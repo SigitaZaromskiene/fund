@@ -37,8 +37,8 @@ function Nav(props) {
         </p>
 
         {authName ? (
-          <p className="nav-a" onClick={() => setRoute("home")}>
-            Apply
+          <p className="nav-a" onClick={() => setRoute("start")}>
+            Start a fundraiser
           </p>
         ) : null}
       </div>
