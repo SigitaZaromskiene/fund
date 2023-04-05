@@ -15,7 +15,7 @@ import Start from "./Start";
 function Routes(props) {
   const { route } = useContext(Global);
 
-  const { setAuthName, setLogged } = useContext(Global);
+  const { setAuthName, setLogged, lastStateUpdate, setClientList } = useContext(Global);
 
   useEffect(() => {
     axios
@@ -38,6 +38,8 @@ function Routes(props) {
   //   const { clientList, setClientList } = useContext(Global);
 
   //   const [lastStateUpdate, setLastStateUpdate] = useState(Date.now());
+
+  
 
   switch (route) {
     case "home":

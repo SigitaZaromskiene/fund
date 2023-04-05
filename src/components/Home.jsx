@@ -6,7 +6,7 @@ import { Global } from "./Global";
 const URL = "http://localhost:3003/home";
 
 function Home(props) {
-  const { route, setRoute } = useContext(Global);
+  const { route, setRoute, logged } = useContext(Global);
   //   useEffect(() => {
   //     if (props.lastStateUpdate === null) {
   //       return;
@@ -96,13 +96,18 @@ function Home(props) {
             </p>
             <div
               style={{ display: "flex", gap: "20px", justifyContent: "center" }}
-            >
-              <button
+            >{logged ?  <button
+                className="button-or"
+                onClick={() => setRoute("start")}
+              >
+                Apply now
+              </button>:  <button
                 className="button-or"
                 onClick={() => setRoute("register")}
               >
                 Apply now
-              </button>
+              </button>}
+             
               <button
                 className="button-blue"
                 onClick={() => setRoute("fundraisers")}

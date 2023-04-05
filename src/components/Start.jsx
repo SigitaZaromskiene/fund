@@ -5,6 +5,7 @@ import axios from "axios";
 
 function Start() {
   const URL = "http://localhost:3003/story";
+ 
 
   const [file, readFile, remImage] = useFile();
 
@@ -18,15 +19,14 @@ function Start() {
     setLastStateUpdate,
     addStory,
     setAddStory,
-    setRoute,
   } = useContext(Global);
 
-  useEffect(() => {
-    if (createData === null) {
-      return;
-    }
-    axios.post(URL, createData).then((res) => setLastStateUpdate(Date.now()));
-  }, [createData, setLastStateUpdate]);
+  // useEffect(() => {
+  //   if (createData === null) {
+  //     return;
+  //   }
+  //   axios.post(URL, createData).then((res) => setLastStateUpdate(Date.now()));
+  // }, [createData, setLastStateUpdate]);
 
   const formHandler = () => {
     if (!goalAmount || !addStory) {
@@ -46,8 +46,6 @@ function Start() {
       file,
       amount: goalAmount,
     });
-
-    console.log(createData);
 
     setModal({
       class: "visible",
@@ -111,7 +109,7 @@ function Start() {
           </h4>
 
           <div className="details">
-            <label className="label">My story/idea</label>
+            <label className="label">My story/project</label>
             <input
               type="text"
               value={addStory}
@@ -140,10 +138,11 @@ function Start() {
               >
                 <input
                   type="file"
+                  id="formFile"
                   style={{
                     border: "1px solid black",
                     backgroundColor: "white",
-                    id: "formFile",
+
                     height: "45px",
                     padding: "6px",
                   }}
@@ -152,7 +151,7 @@ function Start() {
                 {file ? (
                   <img className="photo" src={file} alt="addphoto" />
                 ) : (
-                  <div className="photo"></div>
+                  <div className="photo" src="./img/no-photo.jpg"></div>
                 )}
               </div>
             </div>
@@ -161,12 +160,12 @@ function Start() {
               <input
                 type="number"
                 placeholder="&euro;"
+                min="0"
+                value={goalAmount}
                 style={{
                   width: "150px",
                   height: "45px",
                   fontSize: "28px",
-
-                  value: { goalAmount },
                 }}
                 onChange={(e) => setGoalAmount(e.target.value)}
               ></input>

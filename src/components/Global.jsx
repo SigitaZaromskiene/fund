@@ -8,9 +8,10 @@ export const GlobalProvider = ({ children }) => {
   const [logged, setLogged] = useState(null);
   const [authName, setAuthName] = useState(null);
   const [goalAmount, setGoalAmount] = useState("");
-  const [createData, setCreateData] = useState(null);
+  const [createData, setCreateData] = useState("");
   const [lastStateUpdate, setLastStateUpdate] = useState(Date.now());
   const [addStory, setAddStory] = useState("");
+  const [clientList, setClientList] = useState([]);
 
   return (
     <Global.Provider
@@ -29,6 +30,8 @@ export const GlobalProvider = ({ children }) => {
         setLastStateUpdate,
         addStory,
         setAddStory,
+        clientList,
+        setClientList,
       }}
     >
       {children}
