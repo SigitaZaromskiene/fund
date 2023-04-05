@@ -15,6 +15,8 @@ function Fundraisers() {
     lastStateUpdate,
     setClientList,
     clientList,
+    setDonateAmount,
+    donateAmount,
 
     setLastStateUpdate,
   } = useContext(Global);
@@ -22,7 +24,7 @@ function Fundraisers() {
   const [raisedSum, setRaisedSum] = useState(0);
   const [editData, setEditData] = useState(null);
 
-  const [raisedAmount, setRaisedAmount] = useState(0);
+  const [raisedAmount, setRaisedAmount] = useState("");
 
   useEffect(() => {
     if (lastStateUpdate === null) {
@@ -41,18 +43,6 @@ function Fundraisers() {
       .put(URL + "/" + editData.id, editData, { withCredentials: true })
       .then((res) => setLastStateUpdate(Date.now()));
   }, [editData]);
-
-  console.log(editData);
-
-  const howMuchLeftGoal = () => {
-    const left = clientList.map((acc) => acc.amount - raisedSum);
-    // console.log(left);
-    //   const updatedBill = clientList.map((prj) => {
-    //     if (prj.id !== clientList.id) return prj;
-
-    //     return prj;
-    //   });
-  };
 
   return (
     <div
@@ -132,10 +122,9 @@ function Fundraisers() {
                 </p>
 
                 <div className="border"></div>
-
                 <p>
                   <span style={{ color: "#297fba" }}>
-                    {howMuchLeftGoal()}&euro;
+                    {a.amount - a.raised}&euro;
                   </span>{" "}
                   left till goal
                 </p>
@@ -144,6 +133,7 @@ function Fundraisers() {
             <Donate
               project={a}
               raisedAmount={raisedAmount}
+              setRaisedAmount={setRaisedAmount}
               setEditData={setEditData}
             />
           </div>

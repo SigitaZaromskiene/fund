@@ -21,12 +21,12 @@ function Start() {
     raisedAmount,
   } = useContext(Global);
 
-  // useEffect(() => {
-  //   if (createData === null) {
-  //     return;
-  //   }
-  //   axios.post(URL, createData).then((res) => setLastStateUpdate(Date.now()));
-  // }, [createData, setLastStateUpdate]);
+  useEffect(() => {
+    if (createData === null) {
+      return;
+    }
+    axios.post(URL, createData).then((res) => setLastStateUpdate(Date.now()));
+  }, [createData, setLastStateUpdate]);
 
   const formHandler = () => {
     if (!goalAmount || !addStory) {
@@ -46,6 +46,7 @@ function Start() {
       file,
       amount: goalAmount,
       raised: 0,
+      leftTill: goalAmount,
     });
 
     setModal({
@@ -151,9 +152,7 @@ function Start() {
                 ></input>
                 {file ? (
                   <img className="photo" src={file} alt="addphoto" />
-                ) : (
-                  <div className="photo" src="./img/no-photo.jpg"></div>
-                )}
+                ) : null}
               </div>
             </div>
             <div className="details">

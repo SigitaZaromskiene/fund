@@ -4,24 +4,18 @@ import axios from "axios";
 import { useFile } from "./useFile";
 
 function Donate(props) {
-  const [donateName, setDonateName] = useState("");
-  const [donateAmount, setDonateAmount] = useState("");
+  const [donateName, setDonateName] = useState([]);
 
-  const {
-    setClientList,
-    clientList,
-    setLastStateUpdate,
-    raisedAmount,
-    setCreateData,
-  } = useContext(Global);
+  const [donateAmount, setDonateAmount] = useState([]);
 
-  const [file, readFile, remImage] = useFile();
+  const { setClientList, clientList } = useContext(Global);
 
   const donateHandler = () => {
     const updatedBill = clientList.map((bill) => {
       if (bill.id !== props.project.id) return bill;
 
-      const newTotalAmount = Number(props.raisedAmount) + Number(donateAmount);
+      const newTotalAmount =
+        Number(props.project.raised) + Number(donateAmount);
       props.project.raised = newTotalAmount;
 
       return bill;
@@ -32,6 +26,8 @@ function Donate(props) {
     props.setEditData({
       raised: props.project.raised,
       id: props.project.id,
+      donatorName: donateName,
+      donatorAmount: donateAmount,
     });
 
     setClientList(updatedBill);
@@ -91,26 +87,17 @@ function Donate(props) {
               color: "#F36B32",
             }}
           >
-            <p style={{ margin: "0px" }}>&#10084;</p>
-            <div style={{ display: "flex", gap: "5px" }}>
-              <p style={{ margin: "0px" }}>Lara</p>
-              <p style={{ margin: "0px" }}>100 &euro;</p>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              justifyContent: "center",
-              fontSize: "16px",
-              color: "#F36B32",
-            }}
-          >
-            <p style={{ margin: "0px" }}>&#10084;</p>
-            <div style={{ display: "flex", gap: "5px" }}>
-              <p style={{ margin: "0px" }}>Lara</p>
-              <p style={{ margin: "0px" }}>100 &euro;</p>
-            </div>
+            {donateName ? (
+              <>
+                <p style={{ margin: "0px" }}>&#10084;</p>
+                <div style={{ display: "flex", gap: "5px" }}>
+                  <p style={{ margin: "0px" }}>{props.project.donatorName}</p>
+                  <p style={{ margin: "0px" }}>
+                    {props.project.donatorAmount}&euro;
+                  </p>
+                </div>
+              </>
+            ) : null}
           </div>
         </div>
       </div>
