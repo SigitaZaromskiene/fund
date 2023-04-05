@@ -1,8 +1,41 @@
 import { useState, useContext, useEffect } from "react";
+import { Global } from "./Global";
+import axios from "axios";
+import { useFile } from "./useFile";
 
-function Donate() {
+function Donate(props) {
   const [donateName, setDonateName] = useState("");
   const [donateAmount, setDonateAmount] = useState("");
+
+  const {
+    setClientList,
+    clientList,
+    setLastStateUpdate,
+    raisedAmount,
+    setCreateData,
+  } = useContext(Global);
+
+  const [file, readFile, remImage] = useFile();
+
+  const donateHandler = () => {
+    const updatedBill = clientList.map((bill) => {
+      if (bill.id !== props.project.id) return bill;
+
+      const newTotalAmount = Number(props.raisedAmount) + Number(donateAmount);
+      props.project.raised = newTotalAmount;
+
+      return bill;
+    });
+
+    console.log(updatedBill);
+
+    props.setEditData({
+      raised: props.project.raised,
+      id: props.project.id,
+    });
+
+    setClientList(updatedBill);
+  };
   return (
     <>
       <div
@@ -25,7 +58,9 @@ function Donate() {
           placeholder="Amount"
           style={{ padding: "10px", fontSize: "14px" }}
         />
-        <button className="button-or-sm">Donate</button>
+        <button className="button-or-sm" onClick={donateHandler}>
+          Donate
+        </button>
       </div>
 
       <div

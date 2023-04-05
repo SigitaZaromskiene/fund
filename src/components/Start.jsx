@@ -5,7 +5,6 @@ import axios from "axios";
 
 function Start() {
   const URL = "http://localhost:3003/story";
- 
 
   const [file, readFile, remImage] = useFile();
 
@@ -19,6 +18,7 @@ function Start() {
     setLastStateUpdate,
     addStory,
     setAddStory,
+    raisedAmount,
   } = useContext(Global);
 
   // useEffect(() => {
@@ -45,6 +45,7 @@ function Start() {
       text: addStory,
       file,
       amount: goalAmount,
+      raised: 0,
     });
 
     setModal({

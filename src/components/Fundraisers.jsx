@@ -3,6 +3,7 @@ import { Global } from "./Global";
 import { useFile } from "./useFile";
 import axios from "axios";
 import Donate from "./Donate";
+import { v4 as uuidv4 } from "uuid";
 
 function Fundraisers() {
   const URL = "http://localhost:3003/projects";
@@ -19,13 +20,9 @@ function Fundraisers() {
   } = useContext(Global);
 
   const [raisedSum, setRaisedSum] = useState(0);
-
-  const [donateName, setDonateName] = useState("");
-  const [donateAmount, setDonateAmount] = useState("");
-
   const [editData, setEditData] = useState(null);
 
-  console.log(donateAmount, donateName);
+  const [raisedAmount, setRaisedAmount] = useState(0);
 
   useEffect(() => {
     if (lastStateUpdate === null) {
@@ -36,14 +33,16 @@ function Fundraisers() {
     });
   }, [lastStateUpdate]);
 
-  // useEffect(() => {
-  //   if (null === editData) {
-  //     return;
-  //   }
-  //   axios
-  //     .put(URL + "/" + editData.id, editData, { withCredentials: true })
-  //     .then((res) => setLastStateUpdate(Date.now()));
-  // }, [editData]);
+  useEffect(() => {
+    if (null === editData) {
+      return;
+    }
+    axios
+      .put(URL + "/" + editData.id, editData, { withCredentials: true })
+      .then((res) => setLastStateUpdate(Date.now()));
+  }, [editData]);
+
+  console.log(editData);
 
   const howMuchLeftGoal = () => {
     const left = clientList.map((acc) => acc.amount - raisedSum);
@@ -54,23 +53,6 @@ function Fundraisers() {
     //     return prj;
     //   });
   };
-
-  // const donateHandler = (a) => {
-  //   const updatedBill = clientList.map((bill) => {
-  //     if (bill.id !== a.id) return bill;
-
-  //     const newTotalAmount = Number(a.amount) + Number(donateAmount);
-  //     a.amount = newTotalAmount;
-  //     return bill;
-  //   });
-
-  //   setEditData({
-  //     amount: a.amount,
-  //     id: a.id,
-  //   });
-
-  //   setClientList(updatedBill);
-  // };
 
   return (
     <div
@@ -94,7 +76,7 @@ function Fundraisers() {
       </h2>
 
       {clientList.map((a) => (
-        <div className="container">
+        <div key={uuidv4()} className="container">
           <div className="project">
             <div
               style={{
@@ -139,7 +121,7 @@ function Fundraisers() {
               <div style={{ textAlign: "center" }}>
                 <p style={{ margin: "0px" }}>
                   <span style={{ fontSize: "22px", fontWeight: "500" }}>
-                    1&euro;{" "}
+                    {a.raised}&euro;{" "}
                   </span>{" "}
                   raised of{" "}
                   <span style={{ color: "#F36B32", fontWeight: "500" }}>
@@ -159,7 +141,11 @@ function Fundraisers() {
                 </p>
               </div>
             </div>
-            <Donate />
+            <Donate
+              project={a}
+              raisedAmount={raisedAmount}
+              setEditData={setEditData}
+            />
           </div>
         </div>
       ))}
