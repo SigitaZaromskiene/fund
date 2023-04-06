@@ -152,7 +152,7 @@ function Start() {
                 ></input>
                 {file ? (
                   <img className="photo" src={file} alt="addphoto" />
-                ) : null}
+                ) : <div className='photo'></div>}
               </div>
             </div>
             <div className="details">

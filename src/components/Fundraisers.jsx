@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { Global } from "./Global";
 import { useFile } from "./useFile";
 import axios from "axios";
 import Donate from "./Donate";
 import { v4 as uuidv4 } from "uuid";
 
-function Fundraisers() {
+function Fundraisers(props) {
   const URL = "http://localhost:3003/projects";
 
   const IMG = "http://localhost:3003/img/";
@@ -17,6 +17,9 @@ function Fundraisers() {
     clientList,
     setDonateAmount,
     donateAmount,
+    leftAmount,
+    createData,
+    setCreateData,
 
     setLastStateUpdate,
   } = useContext(Global);
@@ -25,6 +28,8 @@ function Fundraisers() {
   const [editData, setEditData] = useState(null);
 
   const [raisedAmount, setRaisedAmount] = useState("");
+
+  const [donations, setDonations] = useState([]);
 
   useEffect(() => {
     if (lastStateUpdate === null) {
@@ -43,6 +48,23 @@ function Fundraisers() {
       .put(URL + "/" + editData.id, editData, { withCredentials: true })
       .then((res) => setLastStateUpdate(Date.now()));
   }, [editData]);
+
+  console.log(clientList);
+
+  // const [filteredClients, setFilteredClients] = useState([]);
+
+  // const filtered = () => {
+  //   setClientList((s) =>
+  //     [...s].sort((a, b) => a.amount.localeCompare(b.amount))
+  //   );
+  // };
+
+  // console.log(filtered);
+  // setFilteredClients(filtered);
+
+  // console.log(createData);
+
+  // console.log(filteredClients);
 
   return (
     <div
@@ -135,6 +157,8 @@ function Fundraisers() {
               raisedAmount={raisedAmount}
               setRaisedAmount={setRaisedAmount}
               setEditData={setEditData}
+              setDonations={setDonations}
+              donations={donations}
             />
           </div>
         </div>
