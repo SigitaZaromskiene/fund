@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function Fundraisers(props) {
   const URL = "http://localhost:3003/projects";
-
+  const DONATION_URL = "http://localhost:3003/donations";
   const IMG = "http://localhost:3003/img/";
 
   const {
@@ -18,10 +18,11 @@ function Fundraisers(props) {
     setDonateAmount,
     donateAmount,
     leftAmount,
-    createData,
-    setCreateData,
-
+    donations,
+    setDonations,
+    setDonationsList,
     setLastStateUpdate,
+    lastDonationsUpdate,
   } = useContext(Global);
 
   const [raisedSum, setRaisedSum] = useState(0);
@@ -29,7 +30,11 @@ function Fundraisers(props) {
 
   const [raisedAmount, setRaisedAmount] = useState("");
 
-  const [donations, setDonations] = useState([]);
+  const [blockUser, setBlockUser] = useState([]);
+
+  const [userState, setUserState] = useState([]);
+
+  //  const [createDonations, setCreateDonations] = useState([])
 
   useEffect(() => {
     if (lastStateUpdate === null) {
@@ -40,6 +45,13 @@ function Fundraisers(props) {
     });
   }, [lastStateUpdate]);
 
+  //     useEffect(() => {
+  //   if (createDonations === null) {
+  //     return;
+  //   }
+  //   axios.post(URL, createDonations).then((res) => setLastStateUpdate(Date.now()));
+  // }, [createDonations, setLastStateUpdate]);
+
   useEffect(() => {
     if (null === editData) {
       return;
@@ -49,22 +61,27 @@ function Fundraisers(props) {
       .then((res) => setLastStateUpdate(Date.now()));
   }, [editData]);
 
-  console.log(clientList);
+  useEffect(() => {
+    if (blockUser === null) {
+      return;
+    }
+    axios
+      .put(URL + "/" + blockUser.id + "/block", blockUser)
+      .then((res) => setLastStateUpdate(Date.now()));
+  }, [blockUser]);
 
-  // const [filteredClients, setFilteredClients] = useState([]);
+  useEffect(() => {
+    axios.get(DONATION_URL).then((res) => setDonationsList(res.data));
+  }, [lastDonationsUpdate]);
 
-  // const filtered = () => {
-  //   setClientList((s) =>
-  //     [...s].sort((a, b) => a.amount.localeCompare(b.amount))
-  //   );
-  // };
-
-  // console.log(filtered);
-  // setFilteredClients(filtered);
-
-  // console.log(createData);
-
-  // console.log(filteredClients);
+  //   useEffect(() => {
+  //   if (createDonations === null) {
+  //     return;
+  //   }
+  //   axios
+  //     .put(DON + "/" + createDonations.id + "/donation", createDonations)
+  //     .then((res) => setLastStateUpdate(Date.now()));
+  // }, [createDonations]);
 
   return (
     <div
@@ -136,7 +153,13 @@ function Fundraisers(props) {
                     {a.raised}&euro;{" "}
                   </span>{" "}
                   raised of{" "}
-                  <span style={{ color: "#F36B32", fontWeight: "500" }}>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      color: "#F36B32",
+                      fontWeight: "500",
+                    }}
+                  >
                     {" "}
                     {a.amount}&euro;{" "}
                   </span>{" "}
@@ -144,14 +167,19 @@ function Fundraisers(props) {
                 </p>
 
                 <div className="border"></div>
-                <p>
-                  <span style={{ color: "#297fba" }}>
-                    {a.amount - a.raised}&euro;
-                  </span>{" "}
-                  left till goal
-                </p>
+                {a.blocked === 0 ? (
+                  <p>
+                    <span style={{ color: "#297fba" }}>
+                      {a.amount - a.raised}&euro;
+                    </span>{" "}
+                    left till goal
+                  </p>
+                ) : (
+                  <p style={{ color: "#297fba" }}>Thank you for donations</p>
+                )}
               </div>
             </div>
+
             <Donate
               project={a}
               raisedAmount={raisedAmount}
@@ -159,10 +187,22 @@ function Fundraisers(props) {
               setEditData={setEditData}
               setDonations={setDonations}
               donations={donations}
+              blockUser={blockUser}
+              setBlockUser={setBlockUser}
+              // createDonations={createDonations}
+              // setCreateDonations={setCreateDonations}
             />
           </div>
         </div>
       ))}
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "15px",
+        }}
+      ></div>
     </div>
   );
 }

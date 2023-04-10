@@ -173,6 +173,17 @@ form {
   height: 200px;
 }
 
+
+.project1 {
+  border: 1px solid black;
+  background-color:red;
+  margin-top: 25px;
+  width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 2.1fr 1.5fr 1.5fr;
+  height: 200px;
+}
+
 .container {
   display: flex;
   justify-content: center;

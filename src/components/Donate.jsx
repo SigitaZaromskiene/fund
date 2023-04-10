@@ -1,63 +1,158 @@
 import { useState, useContext, useEffect } from "react";
 import { Global } from "./Global";
 import axios from "axios";
-import { useFile } from "./useFile";
+import { v4 as uuidv4 } from "uuid";
 
 function Donate(props) {
   const [donateName, setDonateName] = useState([]);
 
   const [donateAmount, setDonateAmount] = useState([]);
 
-  const { setClientList, clientList } = useContext(Global);
+  const {
+    setClientList,
+    clientList,
+    authRole,
+    donations,
+    setDonations,
+    setLastStateUpdate,
+    donationsList,
+    setLastDonationsUpdate,
+  } = useContext(Global);
 
-  const donateHandler = () => {
+  const isUserAdmin = () => {
+    return authRole === "admin";
+  };
+
+  const deleteProjectHandler = () => {
+    const URL = "http://localhost:3003/projects";
+
+    axios
+      .delete(URL + "/" + props.project.id)
+      .then((res) => setLastStateUpdate(Date.now()));
+  };
+
+  const createDonationHandler = () => {
+    const DONATION_URL = "http://localhost:3003/donations";
+
+    axios
+      .post(DONATION_URL, {
+        name: donateName,
+        amount: donateAmount,
+        projectId: props.project.id,
+      })
+      .then((res) => {
+        setLastDonationsUpdate(Date.now());
+        handleDonationAdded();
+      });
+  };
+
+  const getProjectDonations = () => {
+    return donationsList.filter(
+      (donation) => Number(donation.projectId) === Number(props.project.id)
+    );
+  };
+
+  //  const [donationsList, setDonationsList] = useState(
+  //   JSON.parse(localStorage.getItem("list")) || []
+
+  //     useEffect(
+  //   () => localStorage.setItem("list", JSON.stringify(donationsList)),
+  //   [donationsList]
+  // );
+  // );
+
+  //   useEffect(() => {
+  //   if (createDonations === null) {
+  //     return;
+  //   }
+  //   axios.post(URL1, createDonations).then((res) => console.log(res.data));
+  // }, [createDonations]);
+
+  const handleDonationAdded = () => {
     const updatedBill = clientList.map((bill) => {
       if (bill.id !== props.project.id) return bill;
 
       const newTotalAmount =
         Number(props.project.raised) + Number(donateAmount);
+
       props.project.raised = newTotalAmount;
 
       return bill;
     });
 
-    console.log(updatedBill);
+    //      props.setCreateDonations({
+    //       id: props.project.id,
+    //   name: donateName,
+    //   amount: donateAmount
+
+    // })
 
     props.setEditData({
       raised: props.project.raised,
       id: props.project.id,
-      donatorName: donateName,
-      donatorAmount: donateAmount,
     });
+
+    if (props.project.amount <= props.project.raised) {
+      props.setBlockUser({
+        id: props.project.id,
+        blocked: 1,
+        leftTill: 0,
+      });
+    }
 
     setClientList(updatedBill);
   };
+
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "15px",
-          justifyContent: "center",
-          gap: "10px",
-        }}
-      >
-        <input
-          onChange={(e) => setDonateName(e.target.value)}
-          placeholder="Name"
-          style={{ padding: "10px", fontSize: "14px" }}
-        />
-        <input
-          onChange={(e) => setDonateAmount(e.target.value)}
-          placeholder="Amount"
-          style={{ padding: "10px", fontSize: "14px" }}
-        />
-        <button className="button-or-sm" onClick={donateHandler}>
-          Donate
-        </button>
-      </div>
+      {props.project.blocked === 0 ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "15px",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <input
+            onChange={(e) => setDonateName(e.target.value)}
+            placeholder="Name"
+            style={{ padding: "10px", fontSize: "14px" }}
+          />
+          <input
+            onChange={(e) => setDonateAmount(e.target.value)}
+            placeholder="Amount"
+            style={{ padding: "10px", fontSize: "14px" }}
+          />
+          <button className="button-or-sm" onClick={createDonationHandler}>
+            Donate
+          </button>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "15px",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <p
+            style={{
+              color: "crimson",
+              backgroundColor: "white",
+              padding: "20px",
+              fontWeight: "600",
+            }}
+          >
+            Fundraiser is finished
+          </p>
+        </div>
+      )}
 
       <div
         style={{
@@ -67,6 +162,14 @@ function Donate(props) {
         }}
       >
         <div>
+          {isUserAdmin() && (
+            <>
+              <button className="button-or-sm">Confirm</button>
+              <button className="button-blue-sm" onClick={deleteProjectHandler}>
+                Delete
+              </button>
+            </>
+          )}
           <p
             style={{
               fontSize: "20px",
@@ -87,17 +190,19 @@ function Donate(props) {
               color: "#F36B32",
             }}
           >
-            {donateName ? (
-              <>
-                <p style={{ margin: "0px" }}>&#10084;</p>
-                <div style={{ display: "flex", gap: "5px" }}>
-                  <p style={{ margin: "0px" }}>{props.project.donatorName}</p>
-                  <p style={{ margin: "0px" }}>
-                    {props.project.donatorAmount}&euro;
-                  </p>
+            {getProjectDonations().length ? (
+              getProjectDonations().map((donation) => (
+                <div key={uuidv4()}>
+                  <p style={{ margin: "0px" }}>&#10084;</p>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <p style={{ margin: "0px" }}>{donation.name}</p>
+                    <p style={{ margin: "0px" }}>{donation.amount}&euro;</p>
+                  </div>
                 </div>
-              </>
-            ) : null}
+              ))
+            ) : (
+              <p>No donations yet</p>
+            )}
           </div>
         </div>
       </div>

@@ -7,17 +7,10 @@ function RoleError() {
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
+          height: "100vh",
         }}
       >
-        <div
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            padding: "30px 40px",
-            marginRight: "100px",
-          }}
-        >
-          You do not have permission for this page
-        </div>
+        <h3>You do not have permission for this page</h3>
       </div>
     </>
   );

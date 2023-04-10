@@ -3,8 +3,8 @@ import { Global } from "./Global";
 import { useFile } from "./useFile";
 import axios from "axios";
 
-function Start() {
-  const URL = "http://localhost:3003/story";
+function Admin() {
+  const URL = "http://localhost:3003/admin";
 
   const [file, readFile, remImage] = useFile();
 
@@ -25,10 +25,8 @@ function Start() {
     if (createData === null) {
       return;
     }
-
     axios.post(URL, createData).then((res) => setLastStateUpdate(Date.now()));
-    setCreateData(null);
-  }, [createData, setLastStateUpdate, setCreateData]);
+  }, [createData, setLastStateUpdate]);
 
   const formHandler = () => {
     if (!goalAmount || !addStory) {
@@ -188,4 +186,4 @@ function Start() {
   );
 }
 
-export default Start;
+export default Admin;

@@ -1,5 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useReadUsers } from "./useReadUsers";
+import { useWriteUsers } from "./useWriteUsers";
 
 export const Global = createContext();
 
@@ -14,6 +16,16 @@ export const GlobalProvider = ({ children }) => {
   const [clientList, setClientList] = useState([]);
   const [leftAmount, setLeftAmount] = useState(goalAmount);
 
+  const [authRole, setAuthRole] = useState(null);
+  const [users, setUpdateUsers] = useReadUsers();
+  const [userResponse, setUserDelete] = useWriteUsers();
+  const [donationsList, setDonationsList] = useState([]);
+  const [lastDonationsUpdate, setLastDonationsUpdate] = useState(Date.now());
+
+  // useEffect(() => {
+  //   setLogged(null);
+  // }, [route]);
+
   return (
     <Global.Provider
       value={{
@@ -21,8 +33,7 @@ export const GlobalProvider = ({ children }) => {
         setRoute,
         logged,
         setLogged,
-        authName,
-        setAuthName,
+
         goalAmount,
         setGoalAmount,
         createData,
@@ -35,6 +46,18 @@ export const GlobalProvider = ({ children }) => {
         setClientList,
         leftAmount,
         setLeftAmount,
+        authName,
+        setAuthName,
+        authRole,
+        setAuthRole,
+        users,
+        setUpdateUsers,
+        userResponse,
+        setUserDelete,
+        donationsList,
+        setDonationsList,
+        lastDonationsUpdate,
+        setLastDonationsUpdate,
       }}
     >
       {children}

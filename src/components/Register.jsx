@@ -11,8 +11,6 @@ function Register(props) {
 
   const { setRoute, setLogged, setAuthName } = useContext(Global);
 
-  console.log(error);
-
   const register = (_) => {
     if (psw !== psw2) {
       setError("Passwords missmatch");
@@ -25,7 +23,6 @@ function Register(props) {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data);
         if (res.data.status === "ok") {
           setName("");
           setPsw("");
