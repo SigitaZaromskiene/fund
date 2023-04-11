@@ -50,7 +50,7 @@ function Login(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "845px",
+        height: "957px",
         backgroundImage:
           "linear-gradient(rgba(41, 127, 186, 0.7), rgba(0, 0, 0, 0.52))",
         backgroundSize: "cover",

@@ -112,7 +112,7 @@ function Donate(props) {
             flexDirection: "column",
             alignItems: "center",
             padding: "15px",
-            justifyContent: "center",
+            justifyContent:'center',
             gap: "10px",
           }}
         >
@@ -126,7 +126,7 @@ function Donate(props) {
             placeholder="Amount"
             style={{ padding: "10px", fontSize: "14px" }}
           />
-          <button className="button-or-sm" onClick={createDonationHandler}>
+          <button className="button-or-md"  style={{marginTop:'20px'}}onClick={createDonationHandler}>
             Donate
           </button>
         </div>
@@ -145,8 +145,9 @@ function Donate(props) {
             style={{
               color: "crimson",
               backgroundColor: "white",
-              padding: "20px",
+              padding: "15px 10px",
               fontWeight: "600",
+             textAlign:'center'
             }}
           >
             Fundraiser is finished
@@ -157,19 +158,22 @@ function Donate(props) {
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
+          
+          alignItems:'center',
           padding: "15px",
+          flexDirection:'column'
         }}
       >
-        <div>
-          {isUserAdmin() && (
-            <>
-              <button className="button-or-sm">Confirm</button>
-              <button className="button-blue-sm" onClick={deleteProjectHandler}>
+       
+          {isUserAdmin() ? (
+            <div style={{display:'flex', flexDirection: 'column',  gap:'20px', marginTop: '35px'}}>
+              <button className="button-or-md">Confirm</button>
+              <button className="button-blue-md" onClick={deleteProjectHandler}>
                 Delete
               </button>
-            </>
-          )}
+            </div>
+          ) : 
+          <>
           <p
             style={{
               fontSize: "20px",
@@ -177,6 +181,7 @@ function Donate(props) {
               color: "#297fba",
               marginBottom: "10px",
               fontWeight: "500",
+              
             }}
           >
             Recent donations &#10084;
@@ -184,16 +189,17 @@ function Donate(props) {
           <div
             style={{
               display: "flex",
-              gap: "15px",
+              gap: "5px",
               justifyContent: "center",
               fontSize: "16px",
               color: "#F36B32",
+              flexDirection:'column'
             }}
           >
             {getProjectDonations().length ? (
               getProjectDonations().map((donation) => (
-                <div key={uuidv4()}>
-                  <p style={{ margin: "0px" }}>&#10084;</p>
+                <div key={uuidv4()} style={{display:'flex', justifyContent:'center', gap:'5px', }}>
+                  
                   <div style={{ display: "flex", gap: "5px" }}>
                     <p style={{ margin: "0px" }}>{donation.name}</p>
                     <p style={{ margin: "0px" }}>{donation.amount}&euro;</p>
@@ -204,7 +210,9 @@ function Donate(props) {
               <p>No donations yet</p>
             )}
           </div>
-        </div>
+       
+        </>}
+       
       </div>
     </>
   );

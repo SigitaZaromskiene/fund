@@ -69,7 +69,7 @@ function Start() {
   return (
     <div
       style={{
-        height: "845px",
+        height: "875px",
         backgroundImage:
           "linear-gradient(rgba(41, 127, 186, 0.7), rgba(0, 0, 0, 0.52))",
       }}

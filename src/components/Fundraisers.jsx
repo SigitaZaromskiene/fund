@@ -45,13 +45,6 @@ function Fundraisers(props) {
     });
   }, [lastStateUpdate]);
 
-  //     useEffect(() => {
-  //   if (createDonations === null) {
-  //     return;
-  //   }
-  //   axios.post(URL, createDonations).then((res) => setLastStateUpdate(Date.now()));
-  // }, [createDonations, setLastStateUpdate]);
-
   useEffect(() => {
     if (null === editData) {
       return;
@@ -73,15 +66,6 @@ function Fundraisers(props) {
   useEffect(() => {
     axios.get(DONATION_URL).then((res) => setDonationsList(res.data));
   }, [lastDonationsUpdate]);
-
-  //   useEffect(() => {
-  //   if (createDonations === null) {
-  //     return;
-  //   }
-  //   axios
-  //     .put(DON + "/" + createDonations.id + "/donation", createDonations)
-  //     .then((res) => setLastStateUpdate(Date.now()));
-  // }, [createDonations]);
 
   return (
     <div
@@ -140,13 +124,10 @@ function Fundraisers(props) {
               style={{
                 display: "flex",
                 flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <div
-                style={{ height: "110px", padding: "15px", fontSize: "20px" }}
-              >
-                {a.text}
-              </div>
+              <div style={{ padding: "15px", fontSize: "12px" }}>{a.text}</div>
               <div style={{ textAlign: "center" }}>
                 <p style={{ margin: "0px" }}>
                   <span style={{ fontSize: "22px", fontWeight: "500" }}>
@@ -189,8 +170,6 @@ function Fundraisers(props) {
               donations={donations}
               blockUser={blockUser}
               setBlockUser={setBlockUser}
-              // createDonations={createDonations}
-              // setCreateDonations={setCreateDonations}
             />
           </div>
         </div>

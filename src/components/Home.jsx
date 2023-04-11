@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useContext } from "react";
 import { Global } from "./Global";
@@ -18,7 +17,7 @@ function Home(props) {
   return (
     <div
       style={{
-        height: "845px",
+        height: "875px",
         backgroundImage:
           "linear-gradient(rgb(41 127 186 / 70%), rgb(0 0 0 / 52%)), url(https://crowdfunding-production.ewr1.vultrobjects.com/1/root/invest-my-idea-main-page-image-min-1.jpg)",
         backgroundSize: "cover",
@@ -96,18 +95,20 @@ function Home(props) {
             </p>
             <div
               style={{ display: "flex", gap: "20px", justifyContent: "center" }}
-            >{logged ?  <button
-                className="button-or"
-                onClick={() => setRoute("start")}
-              >
-                Apply now
-              </button>:  <button
-                className="button-or"
-                onClick={() => setRoute("register")}
-              >
-                Apply now
-              </button>}
-             
+            >
+              {logged ? (
+                <button className="button-or" onClick={() => setRoute("start")}>
+                  Apply now
+                </button>
+              ) : (
+                <button
+                  className="button-or"
+                  onClick={() => setRoute("register")}
+                >
+                  Apply now
+                </button>
+              )}
+
               <button
                 className="button-blue"
                 onClick={() => setRoute("fundraisers")}
